@@ -1,1 +1,48 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:!0});var _extends=Object.assign||function(a){for(var b,c=1;c<arguments.length;c++)for(var d in b=arguments[c],b)Object.prototype.hasOwnProperty.call(b,d)&&(a[d]=b[d]);return a},_lodash=require('lodash'),_lodash2=_interopRequireDefault(_lodash),_core=require('@babel/core'),_presetReact=require('@babel/preset-react'),_presetReact2=_interopRequireDefault(_presetReact),_sandboxer=require('./lib/sandboxer'),_sandboxer2=_interopRequireDefault(_sandboxer),_render=require('./lib/render'),_render2=_interopRequireDefault(_render);function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _toConsumableArray(a){if(Array.isArray(a)){for(var b=0,c=Array(a.length);b<a.length;b++)c[b]=a[b];return c}return Array.from(a)}exports.default=function(a){var b=a.children,c=a.imports,d=(0,_core.transform)(b,{presets:[_presetReact2.default],plugins:[_sandboxer2.default]}),e=d.code,f=_extends({},c,{render:_render2.default});return new(Function.prototype.bind.apply(Function,[null].concat(_toConsumableArray(_lodash2.default.keys(f)),[e])))().apply(void 0,_toConsumableArray(_lodash2.default.values(f)))};
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _core = require('@babel/core');
+
+var _presetReact = require('@babel/preset-react');
+
+var _presetReact2 = _interopRequireDefault(_presetReact);
+
+var _presetTypescript = require('@babel/preset-typescript');
+
+var _presetTypescript2 = _interopRequireDefault(_presetTypescript);
+
+var _sandboxer = require('./lib/sandboxer');
+
+var _sandboxer2 = _interopRequireDefault(_sandboxer);
+
+var _render = require('./lib/render');
+
+var _render2 = _interopRequireDefault(_render);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+exports.default = function (_ref) {
+  var children = _ref.children,
+      imports = _ref.imports;
+
+  var _transform = (0, _core.transform)(children, {
+    presets: [_presetReact2.default, _presetTypescript2.default],
+    plugins: [_sandboxer2.default]
+  }),
+      code = _transform.code;
+
+  var importsWithRender = _extends({}, imports, { render: _render2.default });
+
+  return new (Function.prototype.bind.apply(Function, [null].concat(_toConsumableArray(_lodash2.default.keys(importsWithRender)), [code])))().apply(undefined, _toConsumableArray(_lodash2.default.values(importsWithRender)));
+};

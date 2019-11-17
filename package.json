@@ -10,11 +10,13 @@
     "url": "git://github.com/Nedomas/react-code-sandbox.git"
   },
   "scripts": {
-    "build": "BABEL_ENV=production babel index.js -d dist && BABEL_ENV=production babel lib/ -d dist/lib"
+    "build": "set BABEL_ENV=production && babel index.js -d dist && set BABEL_ENV=production && babel lib/ -d dist/lib",
+    "build2": "babel index.js -d dist &&  babel lib/ -d dist/lib"
   },
   "dependencies": {
     "@babel/core": "^7.1.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript":"7.1.0",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
