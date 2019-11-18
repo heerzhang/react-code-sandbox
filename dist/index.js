@@ -1,48 +1,52 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _lodash = _interopRequireDefault(require("lodash"));
 
-var _lodash = require('lodash');
+var _core = require("@babel/core");
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _presetReact = _interopRequireDefault(require("@babel/preset-react"));
 
-var _core = require('@babel/core');
+var _sandboxer = _interopRequireDefault(require("./lib/sandboxer"));
 
-var _presetReact = require('@babel/preset-react');
+var _render = _interopRequireDefault(require("./lib/render"));
 
-var _presetReact2 = _interopRequireDefault(_presetReact);
+var _pluginProposalClassProperties = _interopRequireDefault(require("@babel/plugin-proposal-class-properties"));
 
-var _presetTypescript = require('@babel/preset-typescript');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _presetTypescript2 = _interopRequireDefault(_presetTypescript);
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-var _sandboxer = require('./lib/sandboxer');
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
 
-var _sandboxer2 = _interopRequireDefault(_sandboxer);
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var _render = require('./lib/render');
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-var _render2 = _interopRequireDefault(_render);
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-exports.default = function (_ref) {
+var _default = function _default(_ref) {
   var children = _ref.children,
       imports = _ref.imports;
 
   var _transform = (0, _core.transform)(children, {
-    presets: [_presetReact2.default, _presetTypescript2.default],
-    plugins: [_sandboxer2.default]
+    presets: [_presetReact["default"]],
+    plugins: [_pluginProposalClassProperties["default"], _sandboxer["default"]]
   }),
       code = _transform.code;
 
-  var importsWithRender = _extends({}, imports, { render: _render2.default });
-
-  return new (Function.prototype.bind.apply(Function, [null].concat(_toConsumableArray(_lodash2.default.keys(importsWithRender)), [code])))().apply(undefined, _toConsumableArray(_lodash2.default.values(importsWithRender)));
+  var importsWithRender = Object.assign({}, imports, {
+    render: _render["default"]
+  });
+  return _construct(Function, _toConsumableArray(_lodash["default"].keys(importsWithRender)).concat([code])).apply(void 0, _toConsumableArray(_lodash["default"].values(importsWithRender)));
 };
+
+exports["default"] = _default;

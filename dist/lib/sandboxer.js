@@ -1,31 +1,33 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _lodash = require('lodash');
+var _lodash = _interopRequireDefault(require("lodash"));
 
-var _lodash2 = _interopRequireDefault(_lodash);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
+var _default = function _default() {
   return {
     visitor: {
       Program: function Program(path, state) {
-        var imports = _lodash2.default.filter(path.get('body'), function (p) {
+        var imports = _lodash["default"].filter(path.get('body'), function (p) {
           return p.isImportDeclaration();
         });
-        _lodash2.default.each(imports, function (i) {
+
+        _lodash["default"].each(imports, function (i) {
           return i.remove();
         });
       },
       Identifier: function Identifier(path) {
         if (path.node.name !== 'render') return;
-
-        path.node.name = 'return render';
+        path.node.name = 'render';
       }
     }
   };
-};
+}; // path.node.name = 'return render' 改成 'render'
+
+
+exports["default"] = _default;

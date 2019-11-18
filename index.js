@@ -1,19 +1,20 @@
 import _ from 'lodash'
 import { transform } from '@babel/core'
 import babelPresetReact from '@babel/preset-react'
-import babelPresetTypescript from '@babel/preset-typescript'
 import sandboxer from './lib/sandboxer'
 import render from './lib/render'
+
+import classproperties from '@babel/plugin-proposal-class-properties'
 
 
 export default ({ children, imports }) => {
   const { code } = transform(children, {
     presets: [
-      babelPresetReact,
-      babelPresetTypescript
+      babelPresetReact
     ],
     plugins: [
-      sandboxer,
+      classproperties,
+      sandboxer
     ],
   })
 
