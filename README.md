@@ -1,36 +1,37 @@
-# React code sandbox
+# render-from-controlled-jsx-string
+把受到安全自主控制下的js,jsx代码动态插入到浏览器端来执行，支持数据页面都是动态的。
+注意，注入代码必须是可以确保安全的源代码，否则有安全隐患。
 
-React code sandbox renders React JSX source code from string to components. It
-takes source as a string and returns renderable JSX code.
+ The JS and JSX codes under the independent control of security are dynamically inserted into the browser to execute, and the supporting data pages are all dynamic.
+Note that the injected code must be safe source code, otherwise there is a security risk.
+                                  
 
 ## Install
 
 ```sh
-yarn add react-code-sandbox
+yarn add render-from-controlled-jsx-string
 # or
-npm install react-code-sandbox --save
+npm install render-from-controlled-jsx-string --save
 ```
 
-## Usage
+## Usage　例子 １
 
 ```jsx
-import CodeSandbox from 'react-code-sandbox'
-
+import CodeSandbox from 'render-from-controlled-jsx-string'
 import React from 'react'
-import { Text } from 'candour'
+import { Text } from 'sancho'
+//dynamic inject source
 
 const code = `
 import { render } from 'react-dom'
 import React from 'react'
-import { Text } from 'candour'
-
-render(
+import { Text } from 'sancho'
+renderReturn(
   <div>
-    This is a source string
+    <Text> This is a source string </Text>
   </div>
 )
 `
-
 // add this to your app
 <CodeSandbox imports={{ React, Text }}>
   {code}
@@ -39,16 +40,18 @@ render(
 
 ## Render
 
-`render` is a special global variable that is injected into the code parser.
-When you call `render`, the source code of the first argument to it will be
+`renderReturn` is a special global variable that is injected into the code parser.
+When you call `renderReturn`, the source code of the first argument to it will be
 returned from the sandbox.
 
 This part is only used for display purposes and does not effect the source code.
 ```
 import { render } from 'react-dom'
 ```
+renderReturn()才是连接动态代码的关键点。
+renderReturn() is the key to connecting dynamic code.
 
-## Imports
+## Imports　依赖导入
 
 Any imports that you specify in the source code have no actual effects and are
 removed by the parser. They are replaced with variables injected by
@@ -56,12 +59,240 @@ the `imports` prop. When looking at the rendered code example,
 it appears that libraries are imported, but they are just passed as local
 variables under the scenes.
 
-## How it works
+## How it works　内部解析
 
 It uses [babel](https://babeljs.io) in the browser to parse and convert the
 source string into a usable JSX component. It will return parsed component
 that was returned through `render` in the source code.
 
-## Real world usage
+## Complex example　复杂例子２ ,
+注入一个完整的tsx例子代码
+Inject a complete TSX example code.
 
-React code sandbox is used throughout [Candour docs](https://candour.pro).
+```
+下面tsx例子renderReturn(<Example></Example>)才是返回真实的DOM-render。
+`
+
+
+/** @jsx jsx */
+
+import { jsx, css, Global } from "@emotion/core";
+
+import CodeSandbox from "render-from-controlled-jsx-string";
+
+import React from "react";
+
+import {
+  Text,
+  Toolbar,
+  Navbar,
+  useTheme,
+  IconButton,
+  Button,
+  Tabs,
+  Tab,
+  TabIcon,
+  Layer,
+  TabPanel,
+  MenuList,
+  MenuItem,
+  Tooltip,
+  ResponsivePopover,
+  IconChevronDown,
+  IconPlus,
+  DarkMode,
+  LightMode,
+  Pager,
+  IconUmbrella,
+  IconTrash,
+  IconArchive,
+  IconAperture,
+  IconActivity,
+  Stack,
+  StackTitle,
+  StackItem,
+  ScrollView,
+  List,
+  ListItem,
+  IconChevronRight,
+  Avatar,
+  Sheet,
+  MenuDivider,
+  IconHome,
+  IconList,
+  IconUser,
+  IconInstagram,
+  IconPackage,
+  IconMoreVertical,
+  Skeleton,
+  useInfiniteScroll,
+  Embed
+} from "customize-easy-ui-component";
+
+import { FadeImage } from "../FadeImage";
+
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  Cell,
+  CCell
+} from "../comp/TableExt";
+
+import InfiniteScroll from "react-intersection-observing-infinity-scroll";
+
+import Axios from "axios";
+
+export default function PrintReport(
+
+  { printing }: { printing?: boolean },
+  
+  props
+  
+) {
+
+  const values = "sfasf华算的好fgsdf支持";
+  
+  const dynamipic = "19px";
+
+  const code = `
+  
+/** @jsx jsx */
+
+import { jsx, css } from "@emotion/core";
+
+import * as React from "react";
+
+import Axios from "axios";
+
+import InfiniteScroll from "react-intersection-observing-infinity-scroll";
+
+class Example extends React.Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        page: 1,
+        commits: [],
+        isLoading: false
+      };
+    }
+     componentDidMount() {
+      const { page } = this.state;
+    }
+    render() {
+      const { commits, isLoading } = this.state;
+      const commitList = commits.map(commit => {
+        return (
+          <div
+            key={commit.sha}
+            style={{
+              width: 700,
+              margin: "0 auto 30px auto",
+              border: "1px solid #efefef",
+              borderRadius: "5px",
+              padding: 8
+            }}
+          >
+            <img
+              style={{
+                display: "inline-block",
+                verticalAlign: "top",
+                margin: "0 8px 16px 0",
+                borderRadius: "5px"
+              }}
+              width={50}
+              height={50}
+              src={commit.author.avatar_url}
+            />
+            <strong style={{ display: "inline-block", verticalAlign: "top" }}>
+              {commit.commit.author.name}
+            </strong>
+            <div>{commit.commit.message}</div>
+          </div>
+        );
+      });
+      return (
+        <div   css={{
+          overflowY: "scroll",
+          height: "477px",
+        }}>
+          <InfiniteScroll
+            loadMoreFunc={this.fetchCommits}
+            hasMore={true}
+            isLoading={isLoading}
+            thresholdMargin="100px"
+            loaderComponent={
+              <div
+                style={{
+                  height: "300px",
+                  fontSize: "30px",
+                  textAlign: "center"
+                }}
+              >
+                正在努力 发货123！！ 加载更多中.......
+              </div>
+            }
+          >
+            {commitList}
+          </InfiniteScroll>
+        </div>
+      );
+    }
+    fetchCommits = async (page) => {
+      console.log("============FIRED");
+      this.setState(prevState => ({ ...prevState, isLoading: true }));
+      const res = await Axios(
+        "https://api.github.com/repos/pluto-net/scinapse-web-client/commits",
+        {
+          headers: {
+            Accept: "application/vnd.github.v3+json"
+          },
+          params: {
+            type: "all",
+            page: page || this.state.page
+          }
+        }
+      );
+      this.setState(prevState => ({
+        ...prevState,
+        commits: [...prevState.commits, ...res.data],
+        isLoading: false,
+        page: prevState.page + 1
+      }));
+    };
+}
+
+renderReturn(<Example></Example>)
+`;
+
+
+  return (
+  
+    <React.Fragment>
+      <CodeSandbox
+        imports={{
+          React,
+          Text,
+          Embed,
+          FadeImage,
+          Table,
+          TableBody,
+          TableHead,
+          TableRow,
+          Cell,
+          CCell,
+          jsx,
+          css,
+          InfiniteScroll,
+          Axios
+        }}
+      >
+        {code}
+      </CodeSandbox>
+    </React.Fragment>
+    
+  );
+}
+

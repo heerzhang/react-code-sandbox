@@ -22,3 +22,8 @@ export default ({ children, imports }) => {
 
   return new Function(..._.keys(importsWithRender), code)(..._.values(importsWithRender))
 }
+
+
+//not support tsx or ts，It just support js,jsx source code。
+//只能使用js,jsx编码的。
+//这里不支持TypeScript代码，支持jsx+React的动态编码,需支持@babel/preset-typescript。

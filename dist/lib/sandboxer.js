@@ -22,12 +22,19 @@ var _default = function _default() {
         });
       },
       Identifier: function Identifier(path) {
-        if (path.node.name !== 'render') return;
-        path.node.name = 'render';
+        if (path.node.name !== 'renderReturn') return;
+        path.node.name = 'return render';
       }
     }
   };
-}; // path.node.name = 'return render' 改成 'render'
+}; //heerzhang：   path.node.name = 'return render' 改成 'render'
+
+/*
+    Identifier(path) {
+      if (path.node.name !== 'render') return
+      path.node.name = 'return render'
+    },
+*/
 
 
 exports["default"] = _default;

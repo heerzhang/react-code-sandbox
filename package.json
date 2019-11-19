@@ -1,13 +1,14 @@
 {
-  "name": "react-code-sandbox",
+  "name": "render-from-controlled-jsx-string",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "author": "Domas Bitvinskas",
+  "author": "heerzhang <herzhang@163.com>",
+  "description": "把受到安全自主控制下的js,jsx代码动态插入到浏览器端来执行，支持数据页面都是动态的",
   "license": "MIT",
-  "homepage": "https://github.com/Nedomas/react-code-sandbox",
+  "homepage": "https://github.com/heerzhang/render-from-controlled-jsx-string",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Nedomas/react-code-sandbox.git"
+    "url": "git://github.com/heerzhang/render-from-controlled-jsx-string.git"
   },
   "scripts": {
     "build": "set BABEL_ENV=production && babel index.js -d dist && set BABEL_ENV=production && babel lib/ -d dist/lib"
