@@ -47,6 +47,9 @@ var _default = function _default(_ref) {
     render: _render["default"]
   });
   return _construct(Function, _toConsumableArray(_lodash["default"].keys(importsWithRender)).concat([code])).apply(void 0, _toConsumableArray(_lodash["default"].values(importsWithRender)));
-};
+}; //not support tsx or ts，It just support js,jsx source code。
+//只能使用js,jsx编码的。
+//这里不支持TypeScript代码，支持jsx+React的动态编码,需支持@babel/preset-typescript。
+
 
 exports["default"] = _default;

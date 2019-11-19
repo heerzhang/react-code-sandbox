@@ -1,11 +1,11 @@
 {
   "name": "render-from-controlled-jsx-string",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "author": "heerzhang <herzhang@163.com>",
   "description": "把受到安全自主控制下的js,jsx代码动态插入到浏览器端来执行，支持数据页面都是动态的",
   "license": "MIT",
-  "homepage": "https://github.com/heerzhang/render-from-controlled-jsx-string",
+  "homepage": "http://github.com/heerzhang/render-from-controlled-jsx-string",
   "repository": {
     "type": "git",
     "url": "git://github.com/heerzhang/render-from-controlled-jsx-string.git"
