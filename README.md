@@ -93,6 +93,9 @@ It uses [babel](https://babeljs.io) in the browser to parse and convert the
 source string into a usable JSX component. It will return parsed component
 that was returned through `render` in the source code.
 
+页面代码存数据库的缺点：tsx移植到jsx，import注入，参数注入，\` $变量要改写；{boolean} 要改成 {\`${boolean}`}
+　运行速度损失，代码管理更麻烦，源代码搜索失效了。　优点：源代码看起来简洁需要路由页面规模小了，大量代码藏数据库。
+
 ## Complex example　复杂例子3 ,
 注入一个完整的tsx例子代码
 Inject a complete TSX example code.
