@@ -14,7 +14,7 @@ yarn add render-from-controlled-jsx-string
 npm install render-from-controlled-jsx-string --save
 ```
 
-## Usage　例子 １
+## Usage　例子 1
 
 ```jsx
 import CodeSandbox from 'render-from-controlled-jsx-string'
@@ -59,13 +59,41 @@ the `imports` prop. When looking at the rendered code example,
 it appears that libraries are imported, but they are just passed as local
 variables under the scenes.
 
+## Usage　例子 2
+
+```/** @jsx jsx */
+   import { jsx, css } from "@emotion/core";
+   import CodeSandbox from "render-from-controlled-jsx-string";
+   import React, { useCallback, useReducer, useState } from 'react'
+   export default function PrintReport({printing, }:{printing?:boolean, },props) {
+     const Parameters={padding:'38px',name: 'heerzhang', id:23};
+     //let codeOnline =` Online code 在线代码` ;   可用 ` $  (ES6 template string)
+     //let codeGetFromBackendStorage= codeOnline代码语法转换 Code syntax conversion。不可用 ` $ 除了css={{内部}}
+     let codeGetFromBackendStorage = "/** @jsx jsx */ "+
+       "let     mycss=Parameters.padding+' 0 9px'; "+
+       "renderReturn( "+
+       "<div css={{margin:`${Parameters.padding}`}}> " +
+       "   <div css={{padding: mycss}}>"+
+       "③钢丝绳直径小于其公称直径{Parameters.id}的90%；<br/>"+
+       "④钢丝绳严重锈蚀，铁锈填满绳股间隙。【{Parameters.name}】<br/>报废指标"+
+       "</div>  </div>)";
+     return (
+       <React.Fragment>
+         <CodeSandbox imports={{css,jsx,Parameters}}>
+           {codeGetFromBackendStorage}
+         </CodeSandbox>
+       </React.Fragment>
+     );
+   }
+```
+
 ## How it works　内部解析
 
 It uses [babel](https://babeljs.io) in the browser to parse and convert the
 source string into a usable JSX component. It will return parsed component
 that was returned through `render` in the source code.
 
-## Complex example　复杂例子２ ,
+## Complex example　复杂例子3 ,
 注入一个完整的tsx例子代码
 Inject a complete TSX example code.
 
